@@ -6,7 +6,7 @@ class MainController {
 
   constructor($http) {
     this.$http = $http;
-    this.dimension = 3;
+    this.dimension = 12;
     this.board = [];
     this.players = [
       {
@@ -44,18 +44,16 @@ class MainController {
   play = function(x,y) {
 
     if(this.gameOver) { return; }
-    console.log(x);
-    console.log(y);
     const play = {
       'x': x,
       'y': y
     }
     const dimension = this.board.length;
-    console.log('dimension', dimension);
     if(this.board[x][y] === null){
       this.board[x][y] = this.players[this.playerInTurn].code;
-      if(this.isWinner()) {
-
+      if(this.isWinner(this.board, play)) {
+        this.gameOverMessage = this.players[this.playerInTurn].name + 'won!';
+        this.gameOver = true;
       }else {
         this.dirtyCells++;
         if(this.dirtyCells === dimension * dimension){
@@ -64,6 +62,7 @@ class MainController {
         }
         this.nextTurn();
       }
+      console.log(this.gameOverMessage);
     }
   }
 
@@ -75,8 +74,39 @@ class MainController {
     }
   }
 
-  isWinner = function() {
-    return false;
+  isWinner = function(board, play) {
+    const dimension = board.length;
+    const code = board[play.x][play.y];
+    let rowSum = 0, colSum = 0, diagLSum = 0, diagRSum = 0;
+    let leftX= 0 , rightX = 0;
+
+    for(let i=0; i < dimension; i++){
+      if(board[play.x][i] === code) {
+        rowSum++;
+      }
+      if(board[i][play.y] === code) {
+        colSum++;
+      }
+      leftX = i + (play.x - play.y);
+      if(leftX >= 0 && leftX < dimension){
+        if(board[leftX][i] === code){
+          diagLSum++;
+        }
+      }
+      rightX = play.x + play.y - i;
+      if(rightX >= 0 && rightX < dimension){
+        if(board[rightX][i] === code){
+          diagRSum++;
+        }
+      }
+    }
+    console.log('dimension', dimension);
+    console.log('col', colSum);
+    console.log('row', rowSum);
+    console.log('diagR', diagRSum);
+    console.log('diagL', diagLSum);
+    //Return if one of the results is equal to the needed for win the game
+    return colSum >= dimension || rowSum >= dimension || diagLSum >= dimension || diagRSum  >= dimension;
   }
 }
 
