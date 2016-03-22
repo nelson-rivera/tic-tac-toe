@@ -1,0 +1,13 @@
+.board {
+  .board-row {
+    display: flex;
+    .cell {
+      display: flex;
+      width: 33.33333333%;
+      margin: 5px;
+      border-radius: 15px;
+      min-height: 85px;
+      background-color: #78bec5;
+    }
+  }
+}
