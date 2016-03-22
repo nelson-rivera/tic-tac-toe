@@ -6,24 +6,27 @@ class MainController {
 
   constructor($http) {
     this.$http = $http;
-    this.awesomeThings = [];
+    this.dimension = 3;
+    this.board = [];
   }
 
   $onInit() {
-    this.$http.get('/api/things').then(response => {
-      this.awesomeThings = response.data;
-    });
+    // this.$http.get('/api/things').then(response => {
+    //   this.awesomeThings = response.data;
+    // });
+
+    this.board = this.createBoard(this.dimension, null);
   }
 
-  addThing() {
-    if (this.newThing) {
-      this.$http.post('/api/things', { name: this.newThing });
-      this.newThing = '';
+  createBoard(dimension,value){
+    let board = [];
+    for(let i = 0; i < dimension; i++){
+      board[i] = [];
+      for(let j = 0; j< dimension; j++){
+        board[i][j] = value;
+      }
     }
-  }
-
-  deleteThing(thing) {
-    this.$http.delete('/api/things/' + thing._id);
+    return board;
   }
 }
 

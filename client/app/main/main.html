@@ -1,28 +1,10 @@
 <div class="container">
   <div class="board" >
-		<div class="board-row">
-      <div class="cell">
-      </div>
-      <div class="cell">
-      </div>
-      <div class="cell">
-      </div>
-    </div>
-		<div class="board-row">
-      <div class="cell">
-      </div>
-      <div class="cell">
-      </div>
-      <div class="cell">
-      </div>
-    </div>
-		<div class="board-row">
-      <div class="cell">
-      </div>
-      <div class="cell">
-      </div>
-      <div class="cell">
+		<div class="board-row" ng-repeat="row in $ctrl.board track by $index">
+      <div class="cell" ng-repeat="col in row track by $index">
+        {{col}}
       </div>
     </div>
 	</div>
+  {{awesomeThings}}
 </div>

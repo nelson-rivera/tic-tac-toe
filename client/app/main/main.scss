@@ -1,4 +1,5 @@
 .board {
+  overflow: auto;
   .board-row {
     display: flex;
     .cell {
@@ -6,6 +7,7 @@
       width: 33.33333333%;
       margin: 5px;
       border-radius: 15px;
+      min-width: 85px;
       min-height: 85px;
       background-color: #78bec5;
     }
