@@ -19,13 +19,13 @@ class MainController {
       }
     ];
     this.playerInTurn;
+    this.gameOver = false;
     this.movements = 0;
+    this.dirtyCells = 0;
+    this.gameOverMessage = '';
   }
 
   $onInit() {
-    // this.$http.get('/api/things').then(response => {
-    //   this.awesomeThings = response.data;
-    // });
     this.playerInTurn = 0;
     this.board = this.createBoard(this.dimension, null);
   }
@@ -42,18 +42,42 @@ class MainController {
   }
 
   play = function(x,y) {
+
+    if(this.gameOver) { return; }
     console.log(x);
     console.log(y);
-
     const play = {
       'x': x,
       'y': y
     }
+    const dimension = this.board.length;
+    console.log('dimension', dimension);
     if(this.board[x][y] === null){
       this.board[x][y] = this.players[this.playerInTurn].code;
+      if(this.isWinner()) {
+
+      }else {
+        this.dirtyCells++;
+        if(this.dirtyCells === dimension * dimension){
+          this.gameOver = true;
+          this.gameOverMessage = 'It\'s a tie';
+        }
+        this.nextTurn();
+      }
     }
   }
 
+  nextTurn(){
+    if (this.playerInTurn === 0){
+      this.playerInTurn = 1;
+    }else {
+      this.playerInTurn = 0;
+    }
+  }
+
+  isWinner = function() {
+    return false;
+  }
 }
 
 angular.module('ticTacToeApp')
