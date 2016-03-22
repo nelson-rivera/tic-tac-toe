@@ -10,6 +10,14 @@
       min-width: 85px;
       min-height: 85px;
       background-color: #78bec5;
+      transition: all 0.1s linear;
+      &:hover {
+        background-color: #3d4250;
+        cursor: pointer;
+      }
+      &.selected:hover {
+        cursor: default;
+      }
     }
   }
 }
