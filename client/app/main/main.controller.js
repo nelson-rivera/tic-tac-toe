@@ -4,9 +4,10 @@
 
 class MainController {
 
-  constructor($http) {
+  constructor($http, $mdDialog) {
     this.$http = $http;
-    this.dimension = 50;
+    this.$mdDialog = $mdDialog;
+    this.dimension = 3;
     this.board = [];
     this.players = [
       {
@@ -36,6 +37,14 @@ class MainController {
     };
   }
 
+  restartGame() {
+    this.playerInTurn = 0;
+    this.board = this.createBoard(this.dimension, null);
+    this.gameOver = false;
+    this.movements = 0;
+    this.dirtyCells = 0;
+  }
+
   createBoard(dimension,value){
     let board = [];
     for(let i = 0; i < dimension; i++){
@@ -61,13 +70,15 @@ class MainController {
         console.log(data);
         if(data.data.isWinner) {
           console.log('winner');
-          this.gameOverMessage = this.players[this.playerInTurn].name + 'won!';
+          this.gameOverMessage = this.players[this.playerInTurn].name + ' won!';
           this.gameOver = true;
+          this.showGameOverDialog();
         }else {
           this.dirtyCells++;
           if(this.dirtyCells === dimension * dimension){
             this.gameOver = true;
             this.gameOverMessage = 'It\'s a tie';
+            this.showGameOverDialog();
           }
           this.nextTurn();
         }
@@ -80,6 +91,50 @@ class MainController {
   nextTurn(){
     this.playerInTurn = (this.playerInTurn === 0) ? 1 : 0;
   }
+
+  showSettings = function(ev) {
+    let confirm = this.$mdDialog.prompt()
+          .title('Settings')
+          .textContent('Enter the dimension of the board')
+          .placeholder('3')
+          .ariaLabel('Enter the dimension of the board')
+          .targetEvent(ev)
+          .ok('Okay')
+          .cancel('Cancel');
+    this.$mdDialog.show(confirm).then((result) => {
+      let resultInt = parseInt(result);
+      console.log(Number.isFinite(parseInt(result)));
+      if (Number.isFinite(resultInt)) {
+        if (resultInt > 100) {
+          resultInt = 100;
+        }
+        else if (resultInt < 2) {
+          resultInt = 3;
+          console.log('entra');
+        }
+        this.dimension = resultInt;
+        this.board = this.createBoard(this.dimension, null);
+      }
+      else {
+        this.dimension = 3;
+      }
+
+    }, function() {
+      this.dimension = 3;
+    });
+  };
+
+  showGameOverDialog = function(ev) {
+    const confirm = this.$mdDialog.confirm()
+          .title('Game Over')
+          .textContent(this.gameOverMessage)
+          .ariaLabel('Game Over')
+          .targetEvent(ev)
+          .ok('Rematch!')
+    this.$mdDialog.show(confirm).then( ()=> {
+      this.restartGame()
+    });
+  };
 }
 
 angular.module('ticTacToeApp')
