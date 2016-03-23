@@ -1,10 +1,9 @@
 <div class="container">
-  <div class="board" >
+  <div class="board" id="board-table">
 		<div class="board-row" ng-repeat="row in $ctrl.board track by $index">
-      <div ng-click="$ctrl.play($parent.$index, $index)" class="cell" ng-class="{'selected': col !== null}" ng-repeat="col in row track by $index">
+      <div ng-click="$ctrl.play($parent.$index, $index)" class="cell" ng-class="{'selected': col !== null, 'player-1': col === 'x', 'player-2': col === '0'}" ng-repeat="col in row track by $index" ng-style="$ctrl.cellStyle">
         {{col}}
       </div>
     </div>
 	</div>
-  {{awesomeThings}}
 </div>

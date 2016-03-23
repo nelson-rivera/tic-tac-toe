@@ -6,7 +6,7 @@ class MainController {
 
   constructor($http) {
     this.$http = $http;
-    this.dimension = 12;
+    this.dimension = 100;
     this.board = [];
     this.players = [
       {
@@ -23,11 +23,17 @@ class MainController {
     this.movements = 0;
     this.dirtyCells = 0;
     this.gameOverMessage = '';
+    this.boardWidth = 0;
   }
 
   $onInit() {
     this.playerInTurn = 0;
     this.board = this.createBoard(this.dimension, null);
+    const elmnt = document.getElementById("board-table");
+    let xWidth = elmnt.scrollWidth;
+    this.cellStyle = {
+      'height': xWidth/this.dimension + 'px'
+    };
   }
 
   createBoard(dimension,value){
@@ -51,18 +57,23 @@ class MainController {
     const dimension = this.board.length;
     if(this.board[x][y] === null){
       this.board[x][y] = this.players[this.playerInTurn].code;
-      if(this.isWinner(this.board, play)) {
-        this.gameOverMessage = this.players[this.playerInTurn].name + 'won!';
-        this.gameOver = true;
-      }else {
-        this.dirtyCells++;
-        if(this.dirtyCells === dimension * dimension){
+      this.$http.post('/api/things/',{'board': this.board, 'play': play}).then((data) => {
+        console.log(data);
+        if(data.data.isWinner) {
+          console.log('winner');
+          this.gameOverMessage = this.players[this.playerInTurn].name + 'won!';
           this.gameOver = true;
-          this.gameOverMessage = 'It\'s a tie';
+        }else {
+          this.dirtyCells++;
+          if(this.dirtyCells === dimension * dimension){
+            this.gameOver = true;
+            this.gameOverMessage = 'It\'s a tie';
+          }
+          this.nextTurn();
         }
-        this.nextTurn();
-      }
-      console.log(this.gameOverMessage);
+        console.log(this.gameOverMessage);
+      })
+
     }
   }
 
