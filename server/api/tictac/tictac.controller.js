@@ -2,7 +2,6 @@
 'use strict';
 
 import _ from 'lodash';
-//import {Thing} from '../../sqldb';
 
 // Check if play is a winner play
 export function isWinner(req, res) {
