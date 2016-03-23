@@ -90,7 +90,7 @@ export function isWinner(req, res) {
   }
   //Return if one of the results is equal to the needed for win the game
   const isWinner = colSum >= dimension || rowSum >= dimension || diagLSum >= dimension || diagRSum  >= dimension;
-  return respondWithResult({'isWinner' : isWinner});
+  return res.send({'isWinner' : isWinner});
 }
 
 // Gets a list of Things
