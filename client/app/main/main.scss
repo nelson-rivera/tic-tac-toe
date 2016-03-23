@@ -1,25 +1,85 @@
+.main-container {
+  padding: 40px 0;
+  transition: background-color 0.3s ease;
+  &.player-1-turn {
+    background-color: #FF8F82;
+  }
+  &.player-2-turn {
+    background-color: #E2C28F;
+  }
+}
+
 .board {
   overflow: auto;
-  margin-top: 30px;
   .board-row {
     display: flex;
     .cell {
       display: flex;
-      width: 33.33333333%;
+      width: 50%;
       margin: 5px;
       border-radius: 15px;
       min-width: 85px;
       min-height: 85px;
       background-color: #78bec5;
-      transition: all 0.1s linear;
+      transition: all 0.3s ease;
+      position: relative;
+      &:after {
+        left: 0;
+        font-family: "FontAwesome";
+        font-size: 60px;
+        margin-top: -29.5px;
+        opacity: 0;
+        position: absolute;
+        text-align: center;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        top: 50%;
+        width: 100%;
+        color: #FFFFFF;
+      }
       &:hover {
         background-color: #3d4250;
         cursor: pointer;
       }
       &.selected:hover {
         cursor: default;
-        background-color: #78bec5;
+      }
+      &.player-1-cell {
+        background-color: #dc685a;
+        &:after {
+          content: "\f00d";
+          opacity: 1;
+        }
+      }
+      &.player-2-cell {
+        background-color: #ecaf4f;
+        &:after {
+          content: "\f10c";
+          opacity: 1;
+        }
       }
     }
+  }
+}
+
+.player-title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 23px;
+  transition: all .2s ease-in-out;
+  opacity: 0.4;
+  position: fixed;
+  top: 50%;
+  margin-top: -11px;
+
+  &.player-1 {
+    left: 35px;
+  }
+
+  &.player-2 {
+    right: 35px;
+  }
+
+  &.turn {
+    opacity: 1;
+    transform: scale(1.1);
   }
 }

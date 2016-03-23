@@ -6,16 +6,16 @@ class MainController {
 
   constructor($http) {
     this.$http = $http;
-    this.dimension = 100;
+    this.dimension = 50;
     this.board = [];
     this.players = [
       {
         code: 'x',
-        name: 'Player X'
+        name: 'Player 1'
       },
       {
         code: '0',
-        name: 'Player 0'
+        name: 'Player 2'
       }
     ];
     this.playerInTurn;
