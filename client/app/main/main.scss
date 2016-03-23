@@ -4,10 +4,10 @@
   padding-top: 150px;
   transition: background-color 0.3s ease;
   &.player-1-turn {
-    background-color: #FF8F82;
+    background-color: $player1-bg;
   }
   &.player-2-turn {
-    background-color: #E2C28F;
+    background-color: $player2-bg;
   }
 }
 
@@ -22,7 +22,7 @@
       border-radius: 15px;
       min-width: 100px;
       min-height: 100px;
-      background-color: #FFFFFF;
+      background-color: $cell-pristine-bg;
       transition: all 0.3s ease;
       position: relative;
       &:after {
@@ -36,24 +36,24 @@
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         top: 50%;
         width: 100%;
-        color: #FFFFFF;
+        color: $symbols-text-color;
       }
       &:hover {
-        background-color: #3d4250;
+        background-color: $cell-hover-bg;
         cursor: pointer;
       }
       &.selected:hover {
         cursor: default;
       }
       &.player-1-cell {
-        background-color: #dc685a;
+        background-color: $cell-player-1;
         &:after {
           content: "\f00d";
           opacity: 1;
         }
       }
       &.player-2-cell {
-        background-color: #ecaf4f;
+        background-color: $cell-player-2;
         &:after {
           content: "\f10c";
           opacity: 1;
