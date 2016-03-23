@@ -1,6 +1,6 @@
 # tic-tac-toe
 
-This project was generated with the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version 3.5.0.
+Tic Tac Toe App. This project was generated with the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version 3.5.0.
 
 ## Getting Started
 
@@ -25,6 +25,11 @@ This project was generated with the [Angular Full-Stack Generator](https://githu
 
 Run `grunt build` for building and `grunt serve` for preview.
 
-## Testing
+## Notes
 
-Running `npm test` will run the unit tests with karma.
+- You can change the board dimensions by clicking the settings button (Top right corner cog).
+- Dimension can be set to a maximum of 100x100.
+
+## Demo
+
+- (http://tic-tac-toe-nelson.herokuapp.com/)
