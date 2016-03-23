@@ -2,7 +2,7 @@
   <div class="container">
     <div class="board" id="board-table">
   		<div class="board-row" ng-repeat="row in $ctrl.board track by $index">
-        <div ng-click="$ctrl.play($parent.$index, $index)" class="cell" ng-class="{'selected': col !== null, 'player-1-cell': col === 'x', 'player-2-cell': col === '0'}" ng-repeat="col in row track by $index" ng-style="$ctrl.cellStyle">
+        <div ng-click="$ctrl.play($parent.$index, $index)" class="cell" ng-class="{'selected': col !== null, 'player-1-cell': col === 'x', 'player-2-cell': col === '0'}" ng-repeat="col in row track by $index">
         </div>
       </div>
   	</div>

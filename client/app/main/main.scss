@@ -1,6 +1,7 @@
 .main-container {
   min-height: 100%;
   padding: 40px 0;
+  padding-top: 150px;
   transition: background-color 0.3s ease;
   &.player-1-turn {
     background-color: #FF8F82;
